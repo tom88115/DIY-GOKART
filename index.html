@@ -1,130 +1,126 @@
+
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>three.js webgl - orbit controls</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link type="text/css" rel="stylesheet" href="main.css">
-		<style>
-			body {
-				background-color: #ccc;
-				color: #000;
-			}
+ 
+<head>
+    <meta charset="UTF-8">
+    <title>简单Demo</title>
+    <script src='js/three.min.js'></script>
+    <script src='js/OrbitControls.js'></script>
+    <style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+ 
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+ 
+    #canvas {
+        width: 100%;
+        height: 100%;
+    }
+    </style>
+</head>
+ 
+<body>
+    <div id="canvas">
+    </div>
+    <script>
+    var threeObj = {
+        scene: null,
+        camera: null,
+        cube: null,
+        renderer: null,
+        controls: null,
+        width: document.documentElement.clientWidth,
+        height: document.documentElement.clientHeight,
+        initScene: function() {
+            //添加坐标系
+            var ax = new THREE.AxesHelper(100);
+            this.scene = new THREE.Scene();
+            //全局雾化
+            this.scene.fog = new THREE.Fog(0xffffff, 0.015, 1000)
+            this.scene.add(ax);
+        },
+        initCamera: function() {
+            this.camera = new THREE.PerspectiveCamera(60, this.width / this.height, 0.1, 1000);
+            this.camera.position.set(100, 100, 100);
+            this.camera.lookAt(0, 0, 0);
+        },
+        initRenderer: function() {
+            this.renderer = new THREE.WebGLRenderer({
+                antialias: true
+            })
+            this.renderer.setSize(this.width, this.height);
+            this.renderer.setClearColor(0xD1BEBE);
+            document.getElementById('canvas').appendChild(this.renderer.domElement);
+        },
+        initLight: function() {
+            var light = new THREE.DirectionalLight(0x695DEE);
+            light.position.set(100, 0, 10);
+            this.scene.add(light);
+        },
+        initGeometry: function() {
+            var geometry = new THREE.CubeGeometry(25, 55, 20, 3, 3, 3);
+            //使用Phong光照模型的材质，适合镜面、金属等
+            var material = new THREE.MeshPhongMaterial({ color: 0xF2415E, wireframe: true });
+            this.cube = new THREE.Mesh(geometry, material);
+            this.scene.add(this.cube);
+        },
+        initControl: function() {
+            var controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+            // 使用阻尼,指定是否有惯性
+            controls.enableDamping = true;
+            // 动态阻尼系数 就是鼠标拖拽旋转灵敏度，阻尼越小越灵敏
+            controls.dampingFactor = 0.25;
+            // 是否可以缩放
+            controls.enableZoom = true;
+            //是否自动旋转
+            controls.autoRotate = false;
+            //设置相机距离原点的最近距离
+            controls.minDistance = 10;
+            //设置相机距离原点的最远距离
+            controls.maxDistance = 600;
+            //是否开启右键拖拽
+            controls.enablePan = true;
+            this.controls = controls;
+        },
+        render: function() {
+            //这里不能直接用this.render,第二次调用自身时,this就变成了window
+            //requestAnimationFrame的this是window对象，如同setTimeout,setinterval
+            requestAnimationFrame(this.render.bind(this));
+            this.cube.rotation.y += 0.01;
+            this.controls.update();
+            this.renderer.render(this.scene, this.camera);
+        },
+        init: function() {
+            window.onresize = onWindowResize;
+            this.initScene();
+            this.initCamera();
+            this.initRenderer();
+            this.initLight();
+            this.initGeometry();
+            this.initControl();
+            this.render();
+        },
+    }
+ 
+    function onWindowResize() {
+        threeObj.camera.aspect = document.documentElement.clientWidth / document.documentElement.clientHeight;
+        threeObj.camera.updateProjectionMatrix();
+        threeObj.renderer.setSize(threeObj.width, threeObj.height);
+        threeObj.renderer.render(threeObj.scene, threeObj.camera);
+    }
+    threeObj.init();
+    </script>
+</body>
+ 
 
-			a {
-				color: #f00;
-			}
-		</style>
-	</head>
-
-	<body>
-		<div id="info">
-			<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> - orbit controls
-		</div>
-		
-		<script type="module">
-
-
-
-			var camera, controls, scene, renderer;
-
-			init();
-			//render(); // remove when using next line for animation loop (requestAnimationFrame)
-			animate();
-
-			function init() {
-				src="OrbitControls.js"
-				src="three.module.js"
-				scene = new THREE.Scene();
-				scene.background = new THREE.Color( 0xcccccc );
-				scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
-
-				renderer = new THREE.WebGLRenderer( { antialias: true } );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				document.body.appendChild( renderer.domElement );
-
-				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
-				camera.position.set( 400, 200, 0 );
-
-				// controls
-
-				controls = new OrbitControls( camera, renderer.domElement );
-
-				//controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
-
-				controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-				controls.dampingFactor = 0.05;
-
-				controls.screenSpacePanning = false;
-
-				controls.minDistance = 100;
-				controls.maxDistance = 500;
-
-				controls.maxPolarAngle = Math.PI / 2;
-
-				// world
-
-				var geometry = new THREE.CylinderBufferGeometry( 0, 10, 30, 4, 1 );
-				var material = new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true } );
-
-				for ( var i = 0; i < 500; i ++ ) {
-
-					var mesh = new THREE.Mesh( geometry, material );
-					mesh.position.x = Math.random() * 1600 - 800;
-					mesh.position.y = 0;
-					mesh.position.z = Math.random() * 1600 - 800;
-					mesh.updateMatrix();
-					mesh.matrixAutoUpdate = false;
-					scene.add( mesh );
-
-				}
-
-				// lights
-
-				var light = new THREE.DirectionalLight( 0xffffff );
-				light.position.set( 1, 1, 1 );
-				scene.add( light );
-
-				var light = new THREE.DirectionalLight( 0x002288 );
-				light.position.set( - 1, - 1, - 1 );
-				scene.add( light );
-
-				var light = new THREE.AmbientLight( 0x222222 );
-				scene.add( light );
-
-				//
-
-				window.addEventListener( 'resize', onWindowResize, false );
-
-			}
-
-			function onWindowResize() {
-
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-
-			}
-
-			function animate() {
-
-				requestAnimationFrame( animate );
-
-				controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
-
-				render();
-
-			}
-
-			function render() {
-
-				renderer.render( scene, camera );
-
-			}
-
-		</script>
-
-	</body>
-</html>
+————————————————
+版权声明：本文为CSDN博主「青柠可乐」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/wendelle/article/details/80058486
