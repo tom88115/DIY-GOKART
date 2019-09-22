@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>简单Demo</title>
-    <script src='js/three.min.js'></script>
-    <script src='js/OrbitControls.js'></script>
+    <script src='three.min.js'></script>
+	<script src='OrbitControls.js'></script>
+	<script src="GLTFLoader.js"></script>
     <style>
     * {
         margin: 0;
@@ -31,6 +32,8 @@
     <div id="canvas">
     </div>
     <script>
+	
+
     var threeObj = {
         scene: null,
         camera: null,
@@ -38,7 +41,18 @@
         renderer: null,
         controls: null,
         width: document.documentElement.clientWidth,
-        height: document.documentElement.clientHeight,
+		height: document.documentElement.clientHeight,
+		
+		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		// initLoader: function(){
+		// 	var loader = new THREE.GLTFLoader();
+		// 	loader.load('gokart.gltf', function(gltf){
+		// 		scene.add(gltf.scene);
+		// 		renderer.render(scene,camera);
+		// 	}
+		// 	)},
+		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+
         initScene: function() {
             //添加坐标系
             var ax = new THREE.AxesHelper(100);
@@ -66,9 +80,9 @@
             this.scene.add(light);
         },
         initGeometry: function() {
-            var geometry = new THREE.CubeGeometry(25, 55, 20, 3, 3, 3);
+            var geometry = new THREE.CubeGeometry(25, 25, 20, 3, 3, 3);
             //使用Phong光照模型的材质，适合镜面、金属等
-            var material = new THREE.MeshPhongMaterial({ color: 0xF2415E, wireframe: true });
+            var material = new THREE.MeshPhongMaterial({ color: 0xffffff, wireframe:false });
             this.cube = new THREE.Mesh(geometry, material);
             this.scene.add(this.cube);
         },
@@ -77,7 +91,7 @@
             // 使用阻尼,指定是否有惯性
             controls.enableDamping = true;
             // 动态阻尼系数 就是鼠标拖拽旋转灵敏度，阻尼越小越灵敏
-            controls.dampingFactor = 0.25;
+            controls.dampingFactor = 0.1;
             // 是否可以缩放
             controls.enableZoom = true;
             //是否自动旋转
@@ -94,13 +108,14 @@
             //这里不能直接用this.render,第二次调用自身时,this就变成了window
             //requestAnimationFrame的this是window对象，如同setTimeout,setinterval
             requestAnimationFrame(this.render.bind(this));
-            this.cube.rotation.y += 0.01;
+            this.cube.rotation.y += 0.0015;
             this.controls.update();
             this.renderer.render(this.scene, this.camera);
         },
         init: function() {
             window.onresize = onWindowResize;
-            this.initScene();
+			this.initScene();
+			// this.initLoader();
             this.initCamera();
             this.initRenderer();
             this.initLight();
