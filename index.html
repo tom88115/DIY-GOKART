@@ -7,7 +7,7 @@
     <title>简单Demo</title>
     <script src='three.min.js'></script>
 	<script src='OrbitControls.js'></script>
-	<script src="GLTFLoader.js"></script>
+	<script src="STLLoader.js"></script>
     <style>
     * {
         margin: 0;
@@ -42,16 +42,8 @@
         controls: null,
         width: document.documentElement.clientWidth,
 		height: document.documentElement.clientHeight,
-		
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		// initLoader: function(){
-		// 	var loader = new THREE.GLTFLoader();
-		// 	loader.load('gokart.gltf', function(gltf){
-		// 		scene.add(gltf.scene);
-		// 		renderer.render(scene,camera);
-		// 	}
-		// 	)},
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+
+        
 
         initScene: function() {
             //添加坐标系
@@ -111,16 +103,25 @@
             this.cube.rotation.y += 0.0015;
             this.controls.update();
             this.renderer.render(this.scene, this.camera);
-        },
+		},
+		
+		initLoader: function() {
+			var loader = new THREE.STLLoader();
+			var that = this;
+			loader.load( './gokart.stl', function ( geometry ) {
+				that.scene.add( new THREE.Mesh( geometry ) );
+			});
+		},
+
         init: function() {
             window.onresize = onWindowResize;
 			this.initScene();
-			// this.initLoader();
             this.initCamera();
             this.initRenderer();
             this.initLight();
             this.initGeometry();
-            this.initControl();
+			this.initControl();
+			this.initLoader();
             this.render();
         },
     }
