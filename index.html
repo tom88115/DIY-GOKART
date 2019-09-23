@@ -1,142 +1,49 @@
-
 <!DOCTYPE html>
 <html lang="en">
- 
-<head>
-    <meta charset="UTF-8">
-    <title>简单Demo</title>
-    <script src='three.min.js'></script>
-	<script src='OrbitControls.js'></script>
-	<script src="STLLoader.js"></script>
-    <style>
-    * {
-        margin: 0;
-        padding: 0
-    }
- 
-    html,
-    body {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
- 
-    #canvas {
-        width: 100%;
-        height: 100%;
-    }
-    </style>
-</head>
- 
-<body>
-    <div id="canvas">
-    </div>
-    <script>
-	
-
-    var threeObj = {
-        scene: null,
-        camera: null,
-        cube: null,
-        renderer: null,
-        controls: null,
-        width: document.documentElement.clientWidth,
-		height: document.documentElement.clientHeight,
-
-        
-
-        initScene: function() {
-            //添加坐标系
-            var ax = new THREE.AxesHelper(100);
-            this.scene = new THREE.Scene();
-            //全局雾化
-            this.scene.fog = new THREE.Fog(0xffffff, 0.015, 1000)
-            this.scene.add(ax);
-        },
-        initCamera: function() {
-            this.camera = new THREE.PerspectiveCamera(60, this.width / this.height, 0.1, 1000);
-            this.camera.position.set(100, 100, 100);
-            this.camera.lookAt(0, 0, 0);
-        },
-        initRenderer: function() {
-            this.renderer = new THREE.WebGLRenderer({
-                antialias: true
-            })
-            this.renderer.setSize(this.width, this.height);
-            this.renderer.setClearColor(0xD1BEBE);
-            document.getElementById('canvas').appendChild(this.renderer.domElement);
-        },
-        initLight: function() {
-            var light = new THREE.DirectionalLight(0x695DEE);
-            light.position.set(100, 0, 10);
-            this.scene.add(light);
-        },
-        initGeometry: function() {
-            var geometry = new THREE.CubeGeometry(25, 25, 20, 3, 3, 3);
-            //使用Phong光照模型的材质，适合镜面、金属等
-            var material = new THREE.MeshPhongMaterial({ color: 0xffffff, wireframe:false });
-            this.cube = new THREE.Mesh(geometry, material);
-            this.scene.add(this.cube);
-        },
-        initControl: function() {
-            var controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
-            // 使用阻尼,指定是否有惯性
-            controls.enableDamping = true;
-            // 动态阻尼系数 就是鼠标拖拽旋转灵敏度，阻尼越小越灵敏
-            controls.dampingFactor = 0.1;
-            // 是否可以缩放
-            controls.enableZoom = true;
-            //是否自动旋转
-            controls.autoRotate = false;
-            //设置相机距离原点的最近距离
-            controls.minDistance = 10;
-            //设置相机距离原点的最远距离
-            controls.maxDistance = 600;
-            //是否开启右键拖拽
-            controls.enablePan = true;
-            this.controls = controls;
-        },
-        render: function() {
-            //这里不能直接用this.render,第二次调用自身时,this就变成了window
-            //requestAnimationFrame的this是window对象，如同setTimeout,setinterval
-            requestAnimationFrame(this.render.bind(this));
-            this.cube.rotation.y += 0.0015;
-            this.controls.update();
-            this.renderer.render(this.scene, this.camera);
-		},
+	<head>
+		<title>gokart</title>
+		<meta charset="utf-8">
+		<meta name="generator" content="Three.js Editor">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				font-family: sans-serif;
+				font-size: 13px;
+				background-color: #000;
+				margin: 0px;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body ontouchstart="">
+		<script src="js/three.min.js"></script>
+		<script src="js/app.js"></script>
 		
-		initLoader: function() {
-			var loader = new THREE.STLLoader();
-			var that = this;
-			loader.load( './gokart.stl', function ( geometry ) {
-				that.scene.add( new THREE.Mesh( geometry ) );
-			});
-		},
+		<script>
 
-        init: function() {
-            window.onresize = onWindowResize;
-			this.initScene();
-            this.initCamera();
-            this.initRenderer();
-            this.initLight();
-            this.initGeometry();
-			this.initControl();
-			this.initLoader();
-            this.render();
-        },
-    }
- 
-    function onWindowResize() {
-        threeObj.camera.aspect = document.documentElement.clientWidth / document.documentElement.clientHeight;
-        threeObj.camera.updateProjectionMatrix();
-        threeObj.renderer.setSize(threeObj.width, threeObj.height);
-        threeObj.renderer.render(threeObj.scene, threeObj.camera);
-    }
-    threeObj.init();
-    </script>
-</body>
- 
+			var loader = new THREE.FileLoader();
+			loader.load( 'app.json', function ( text ) {
 
-————————————————
-版权声明：本文为CSDN博主「青柠可乐」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/wendelle/article/details/80058486
+				var player = new APP.Player();
+				player.load( JSON.parse( text ) );
+				player.setSize( window.innerWidth, window.innerHeight );
+				player.play();
+
+				document.body.appendChild( player.dom );
+
+				window.addEventListener( 'resize', function () {
+					player.setSize( window.innerWidth, window.innerHeight );
+				} );
+
+			} );
+
+			var button = document.createElement( 'a' );
+			button.href = 'https://threejs.org/editor/#file=' + location.href.split( '/' ).slice( 0, - 1 ).join( '/' ) + '/app.json';
+			button.style.cssText = 'position: absolute; bottom: 20px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
+			button.target = '_blank';
+			button.textContent = 'EDIT';
+			document.body.appendChild( button );
+
+		</script>
+	</body>
+</html>
