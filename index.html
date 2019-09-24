@@ -18,21 +18,10 @@
 	<body ontouchstart="">
 		<script src="js/three.min.js"></script>
 		<script src="js/app.js"></script>
-		<script src="jquery.min.js"></script>
-		<script src="jquery.mobile-1.4.5.min.js"></script>
-		
-		<div data-role="page">
-  <div data-role="header">
-    <h1>滑块控件</h1>
-  </div>
+		<!-- <script src="js/jquery.min.js"></script> -->
+		<!-- <script src="js/jquery.mobile-1.4.5.min.js"></script> -->
 
-  <div data-role="main" class="ui-content">
-    <form method="post" action="demoform.asp">
-      <label for="points">进度:</label>
-      <input type="range" name="points" id="points" value="50" min="0" max="100" data-show-value="true">
-    </form>
-  </div>
-</div>
+
 		
 		<script>
 
@@ -51,12 +40,32 @@
 					player.setSize( window.innerWidth, window.innerHeight );
 				} );
 
+				var slider = document.createElement('input');
+				slider.type = 'range';
+				slider.style.cssText = 'position: absolute; bottom: 200px; right: 20px;';
+				slider.value = 0;
+				slider.min = 0;
+				slider.max = 50;
+				var seat = player.getScene().getObjectByProperty( 'uuid', '8A8FE6E9-84F5-4D79-B691-D72B85807810', true );
+				// var points = document.querySelector('#points');
+				var defaultPos = seat.position.y;
+				slider.oninput = function(event) {
+					console.log(slider.value);
+					
+					var step = slider.value / 100 ;
+					console.log(step);
+					
+					seat.position.y = defaultPos + step;
+				}
+				document.body.appendChild(slider);
+				
+
+
 				var btnUp = document.createElement( 'up' );
 				btnUp.style.cssText = 'position: absolute; bottom: 140px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
 				btnUp.textContent = 'Up';
 				btnUp.onclick = function(event) {
-					var seat = player.getScene().getObjectByProperty( 'uuid', '8A8FE6E9-84F5-4D79-B691-D72B85807810', true );
-					seat.translateZ(0.01);
+					
 				}
 				document.body.appendChild( btnUp );
 
