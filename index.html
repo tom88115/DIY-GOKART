@@ -21,6 +21,7 @@
 		
 		<script>
 
+
 			var loader = new THREE.FileLoader();
 			loader.load( 'app.json', function ( text ) {
 
@@ -35,25 +36,39 @@
 					player.setSize( window.innerWidth, window.innerHeight );
 				} );
 
+				var btnUp = document.createElement( 'up' );
+				btnUp.style.cssText = 'position: absolute; bottom: 140px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
+				btnUp.textContent = 'Up';
+				btnUp.onclick = function(event) {
+					var seat = player.getScene().getObjectByProperty( 'uuid', '8A8FE6E9-84F5-4D79-B691-D72B85807810', true );
+					seat.translateZ(0.01);
+				}
+				document.body.appendChild( btnUp );
+
+
+				var btnDown = document.createElement( 'down' );
+				btnDown.style.cssText = 'position: absolute; bottom: 80px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
+				btnDown.textContent = 'Down';
+				btnDown.onclick = function(event) {
+					var seat = player.getScene().getObjectByProperty( 'uuid', '8A8FE6E9-84F5-4D79-B691-D72B85807810', true );
+					seat.translateZ(-0.01);
+				}
+				document.body.appendChild( btnDown );
+
 			} );
 
-			var button = document.createElement( 'a' );
-			button.href = 'https://threejs.org/editor/#file=' + location.href.split( '/' ).slice( 0, - 1 ).join( '/' ) + '/app.json';
-			button.style.cssText = 'position: absolute; bottom: 20px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
-			button.target = '_blank';
-			button.textContent = 'EDIT';
-			document.body.appendChild( button );
 
-			var button = document.createElement( 'up' );
-			button.style.cssText = 'position: absolute; bottom: 140px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
-			button.target = '_blank';
-			button.textContent = 'Up';
-			document.body.appendChild( button );
-						var button = document.createElement( 'down' );
-			button.style.cssText = 'position: absolute; bottom: 80px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
-			button.target = '_blank';
-			button.textContent = 'Down';
-			document.body.appendChild( button );
+
+			// var button = document.createElement( 'a' );
+			// button.href = 'https://threejs.org/editor/#file=' + location.href.split( '/' ).slice( 0, - 1 ).join( '/' ) + '/app.json';
+			// button.style.cssText = 'position: absolute; bottom: 20px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
+			// button.target = '_blank';
+			// button.textContent = 'EDIT';
+			// document.body.appendChild( button );
+
+			
+			
+			
 
 		</script>
 	</body>

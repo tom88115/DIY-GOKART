@@ -123,6 +123,10 @@ var APP = {
 			scene = value;
 
 		};
+		
+		this.getScene = function() {
+			return scene;
+		}
 
 		this.setSize = function ( width, height ) {
 
