@@ -42,7 +42,7 @@
 
 				var slider = document.createElement('input');
 				slider.type = 'range';
-				slider.style.cssText = 'position: absolute; bottom: 200px; right: 20px;';
+				slider.style.cssText = 'position: absolute; bottom: 200px; right: 0; left: 0; width: 300px; margin: auto;';
 				slider.value = 0;
 				slider.min = 0;
 				slider.max = 50;
@@ -61,23 +61,23 @@
 				
 
 
-				var btnUp = document.createElement( 'up' );
-				btnUp.style.cssText = 'position: absolute; bottom: 140px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
-				btnUp.textContent = 'Up';
-				btnUp.onclick = function(event) {
+				// var btnUp = document.createElement( 'up' );
+				// btnUp.style.cssText = 'position: absolute; bottom: 140px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
+				// btnUp.textContent = 'Up';
+				// btnUp.onclick = function(event) {
 					
-				}
-				document.body.appendChild( btnUp );
+				// }
+				// document.body.appendChild( btnUp );
 
 
-				var btnDown = document.createElement( 'down' );
-				btnDown.style.cssText = 'position: absolute; bottom: 80px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
-				btnDown.textContent = 'Down';
-				btnDown.onclick = function(event) {
-					var seat = player.getScene().getObjectByProperty( 'uuid', '8A8FE6E9-84F5-4D79-B691-D72B85807810', true );
-					seat.translateZ(-0.01);
-				}
-				document.body.appendChild( btnDown );
+				// var btnDown = document.createElement( 'down' );
+				// btnDown.style.cssText = 'position: absolute; bottom: 80px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
+				// btnDown.textContent = 'Down';
+				// btnDown.onclick = function(event) {
+				// 	var seat = player.getScene().getObjectByProperty( 'uuid', '8A8FE6E9-84F5-4D79-B691-D72B85807810', true );
+				// 	seat.translateZ(-0.01);
+				// }
+				// document.body.appendChild( btnDown );
 
 			} );
 
