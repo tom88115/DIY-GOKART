@@ -24,6 +24,7 @@ var APP = {
 			renderer.gammaOutput = true;
 			renderer.setClearColor( 0x000000 );
 			renderer.setPixelRatio( window.devicePixelRatio );
+			renderer.shadowMapType = THREE.PCFSoftShadowMap;
 
 			var project = json.project;
 
