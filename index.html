@@ -1,79 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>gokart</title>
-		<meta charset="utf-8">
-		<meta name="generator" content="Three.js Editor">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style>
-			body {
-				font-family: sans-serif;
-				font-size: 13px;
-				background-color: #000;
-				margin: 0px;
-				overflow: hidden;
+
+<head>
+	<title>gokart</title>
+	<meta charset="utf-8">
+	<meta name="generator" content="Three.js Editor">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style>
+		body {
+			font-family: sans-serif;
+			font-size: 13px;
+			background-color: #000;
+			margin: 0px;
+			overflow: hidden;
+		}
+	</style>
+</head>
+
+<body ontouchstart="">
+	<script src="js/three.min.js"></script>
+	<script src="js/app.js"></script>
+	<!-- <script src="js/jquery.min.js"></script> -->
+	<!-- <script src="js/jquery.mobile-1.4.5.min.js"></script> -->
+
+
+
+	<script>
+		var loader = new THREE.FileLoader();
+		loader.load('app.json', function (text) {
+
+			var player = new APP.Player();
+			player.load(JSON.parse(text));
+			player.setSize(window.innerWidth, window.innerHeight);
+			player.play();
+
+			document.body.appendChild(player.dom);
+
+			window.addEventListener('resize', function () {
+				player.setSize(window.innerWidth, window.innerHeight);
+			});
+
+			var slider = document.createElement('input');
+			slider.type = 'range';
+			slider.style.cssText = 'position: absolute; bottom: 30px; right: 0; left: 0; width: 170px; margin: auto;';
+			slider.value = 0;
+			slider.min = 0;
+			slider.max = 50;
+			var seat = player.getScene().getObjectByProperty('uuid', '8A8FE6E9-84F5-4D79-B691-D72B85807810', true);
+			// var points = document.querySelector('#points');
+			var defaultPos = seat.position.y;
+			slider.oninput = function (event) {
+				console.log(slider.value);
+				var step = slider.value / 100;
+				console.log(step);
+				seat.position.y = defaultPos + step;
 			}
-		</style>
-	</head>
-	<body ontouchstart="">
-		<script src="js/three.min.js"></script>
-		<script src="js/app.js"></script>
-		<!-- <script src="js/jquery.min.js"></script> -->
-		<!-- <script src="js/jquery.mobile-1.4.5.min.js"></script> -->
+			document.body.appendChild(slider);
 
-
-		
-		<script>
-
-
-			var loader = new THREE.FileLoader();
-			loader.load( 'app.json', function ( text ) {
-
-				var player = new APP.Player();
-				player.load( JSON.parse( text ) );
-				player.setSize( window.innerWidth, window.innerHeight );
-				player.play();
-
-				document.body.appendChild( player.dom );
-
-				window.addEventListener( 'resize', function () {
-					player.setSize( window.innerWidth, window.innerHeight );
-				} );
-
-				var slider = document.createElement('input');
-				slider.type = 'range';
-				slider.style.cssText = 'position: absolute; bottom: 30px; right: 0; left: 0; width: 170px; margin: auto;';
-				slider.value = 0;
-				slider.min = 0;
-				slider.max = 50;
-				var seat = player.getScene().getObjectByProperty( 'uuid', '8A8FE6E9-84F5-4D79-B691-D72B85807810', true );
-				// var points = document.querySelector('#points');
-				var defaultPos = seat.position.y;
-				slider.oninput = function(event) {
-					console.log(slider.value);
-					
-					var step = slider.value / 100 ;
-					console.log(step);
-					
-					seat.position.y = defaultPos + step;
-				}
-				document.body.appendChild(slider);
-			
-			} );
+		});
 
 
 
-			var button = document.createElement( 'a' );
-			button.href = 'https://threejs.org/editor/#file=' + location.href.split( '/' ).slice( 0, - 1 ).join( '/' ) + '/app.json';
-			button.style.cssText = 'position: absolute; bottom: 20px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
-			button.target = '_blank';
-			button.textContent = 'EDIT';
-			document.body.appendChild( button );
+		var button = document.createElement('a');
+		button.href = 'https://threejs.org/editor/#file=' + location.href.split('/').slice(0, -1).join('/') + '/app.json';
+		button.style.cssText =
+			'position: absolute; bottom: 20px; right: 20px; padding: 12px 14px; color: #fff; border: 1px solid #fff; border-radius: 4px; text-decoration: none;';
+		button.target = '_blank';
+		button.textContent = 'EDIT';
+		document.body.appendChild(button);
+	</script>
+</body>
 
-			
-			
-			
-
-		</script>
-	</body>
 </html>
