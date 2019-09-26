@@ -46,14 +46,15 @@
 			slider.value = 0;
 			slider.min = 0;
 			slider.max = 50;
-			var seat = player.getScene().getObjectByProperty('uuid', '8A8FE6E9-84F5-4D79-B691-D72B85807810', true);
+			// var seat = player.getScene().getObjectByProperty('uuid', '8A8FE6E9-84F5-4D79-B691-D72B85807810', true);
+			var seat = player.getScene().getObjectByName("seat");
 			// var points = document.querySelector('#points');
 			var defaultPos = seat.position.y;
 			slider.oninput = function (event) {
 				console.log(slider.value);
-				var step = slider.value / 100;
+				var step = slider.value;
 				console.log(step);
-				seat.position.y = defaultPos + step;
+				seat.position.y = defaultPos + -step*2;
 			}
 			document.body.appendChild(slider);
 
