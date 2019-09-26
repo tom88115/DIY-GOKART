@@ -78,20 +78,26 @@
 			// var seat = player.getScene().getObjectByProperty('uuid', '8A8FE6E9-84F5-4D79-B691-D72B85807810', true);
 			var seat = player.getScene().getObjectByName("seat");
 			var seatdefaultPos = seat.position.y;
-			slider.oninput = function (event) {
-				console.log(slider.value);
+			var FrontwheelL = player.getScene().getObjectByName("FrontwheelL");
+			var FrontwheelLdefaultPos = FrontwheelL.position.z;
+			var FrontwheelR = player.getScene().getObjectByName("FrontwheelR");
+			var FrontwheelRdefaultPos = FrontwheelR.position.z;
+			var BackwheelL = player.getScene().getObjectByName("BackwheelL");
+			var BackwheelLdefaultPos = BackwheelL.position.z;
+			var BackwheelR = player.getScene().getObjectByName("BackwheelR");
+			var BackwheelRdefaultPos = BackwheelR.position.z;
+
+			slider.oninput = function () {
 				var step = slider.value;
-				console.log(step);
 				seat.position.y = seatdefaultPos - step*2;
+				FrontwheelL.position.z = FrontwheelLdefaultPos - step*2;
+				FrontwheelR.position.z = FrontwheelRdefaultPos + step*2;
+				BackwheelL.position.z = BackwheelLdefaultPos - step*2;
+				BackwheelR.position.z = BackwheelRdefaultPos + step*2;
+
 			}
-			// var FrontwheelL = player.getScene().getObjectByName("FrontwheelL");
-			// var FrontwheelLdefaultPos = FrontwheelL.position.y;
-			// slider.oninput = function (event) {
-			// 	console.log(slider.value);
-			// 	var step = slider.value;
-			// 	console.log(step);
-			// 	FrontwheelL.position.y = FrontwheelLdefaultPos - step*2;
-			// }
+			
+			
 			
 			document.body.appendChild(slider);
 
