@@ -116,6 +116,12 @@
 			var LianganLdefaultPos = LianganL.position.y;
 			var LianganR = player.getScene().getObjectByName("LianganR");
 			var LianganRdefaultPos = LianganR.position.y;
+			var AngleIron1 = player.getScene().getObjectByName("AngleIron1");
+			var AngleIron1defaultPos = AngleIron1.position.y;
+			var AngleIron2 = player.getScene().getObjectByName("AngleIron2");
+			var AngleIron2defaultPos = AngleIron2.position.y;
+			var Belt = player.getScene().getObjectByName("Belt");
+			var BeltdefaultPos = Belt.position.z;
 
 			
 			slider.oninput = function () {
@@ -139,8 +145,14 @@
 				StentL.position.z = StentLdefaultPosz - step*0.3;
 				StentR.position.y = StentRdefaultPosy - step*0.5;
 				StentR.position.z = StentRdefaultPosz + step*0.3;
-				LianganL.position.z = LianganLdefaultPosz + step*0.3;
-				LianganR.position.z = LianganRdefaultPosz + step*0.3;
+				LianganL.position.y = LianganLdefaultPos - step*0.5;
+				LianganR.position.y = LianganRdefaultPos - step*0.5;
+				AngleIron1.position.y = AngleIron1defaultPos + step*0.8;
+				AngleIron2.position.y = AngleIron2defaultPos + step*0.8;
+				Belt.position.z = BeltdefaultPos - step*0.5;
+
+
+
 
 
 
