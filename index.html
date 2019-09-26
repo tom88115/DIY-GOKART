@@ -92,7 +92,21 @@
 			var ClawRdefaultPos = ClawR.position.y;
 			var ClawL = player.getScene().getObjectByName("ClawL");
 			var ClawLdefaultPos = ClawL.position.y;
-
+			var ElectricDrill = player.getScene().getObjectByName("ElectricDrill");
+			var ElectricDrilldefaultPos = ElectricDrill.position.x;
+			var BeamL = player.getScene().getObjectByName("BeamL");
+			var BeamLdefaultPos = BeamL.position.y;
+			var BeamR = player.getScene().getObjectByName("BeamR");
+			var BeamRdefaultPos = BeamR.position.y;
+			var BottomboardF = player.getScene().getObjectByName("BottomboardF");
+			var BottomboardFdefaultPos = BottomboardF.position.y;
+			var BottomboardB = player.getScene().getObjectByName("BottomboardB");
+			var BottomboardBdefaultPos = BottomboardB.position.y;
+			var Padel = player.getScene().getObjectByName("Padel");
+			var PadeldefaultPos = Padel.position.y;
+			var hinges = player.getScene().getObjectByName("hinges");
+			var hingesdefaultPos = hinges.position.y;
+			
 			slider.oninput = function () {
 				var step = slider.value;
 				seat.position.y = seatdefaultPos - step*2;
@@ -103,6 +117,15 @@
 				BoardT.position.y = BoardTdefaultPos - step*1.6;
 				ClawR.position.y = ClawRdefaultPos - step*0.8;
 				ClawL.position.y = ClawLdefaultPos - step*0.8;
+				ElectricDrill.position.x = ElectricDrilldefaultPos + step*1.5;
+				BeamL.position.y = BeamLdefaultPos + step*1;
+				BeamR.position.y = BeamRdefaultPos + step*1;
+				BottomboardF.position.y = BottomboardFdefaultPos + step*0.4;
+				BottomboardB.position.y = BottomboardBdefaultPos + step*0.4;
+				Padel.position.y = PadeldefaultPos + step*0.2;
+				hinges.position.y = hingesdefaultPos + step*0.1;
+
+
 			}
 			
 			
