@@ -106,6 +106,17 @@
 			var PadeldefaultPos = Padel.position.y;
 			var hinges = player.getScene().getObjectByName("hinges");
 			var hingesdefaultPos = hinges.position.y;
+			var StentL = player.getScene().getObjectByName("StentL");
+			var StentLdefaultPosy = StentL.position.y;
+			var StentLdefaultPosz = StentL.position.z;
+			var StentR = player.getScene().getObjectByName("StentR");
+			var StentRdefaultPosy = StentR.position.y;
+			var StentRdefaultPosz = StentR.position.z;
+			var LianganL = player.getScene().getObjectByName("LianganL");
+			var LianganLdefaultPos = LianganL.position.y;
+			var LianganR = player.getScene().getObjectByName("LianganR");
+			var LianganRdefaultPos = LianganR.position.y;
+
 			
 			slider.oninput = function () {
 				var step = slider.value;
@@ -124,6 +135,14 @@
 				BottomboardB.position.y = BottomboardBdefaultPos + step*0.4;
 				Padel.position.y = PadeldefaultPos + step*0.2;
 				hinges.position.y = hingesdefaultPos + step*0.1;
+				StentL.position.y = StentLdefaultPosy - step*0.5;
+				StentL.position.z = StentLdefaultPosz - step*0.3;
+				StentR.position.y = StentRdefaultPosy - step*0.5;
+				StentR.position.z = StentRdefaultPosz + step*0.3;
+				LianganL.position.z = LianganLdefaultPosz + step*0.3;
+				LianganR.position.z = LianganRdefaultPosz + step*0.3;
+
+
 
 
 			}
