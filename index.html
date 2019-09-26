@@ -86,6 +86,12 @@
 			var BackwheelLdefaultPos = BackwheelL.position.z;
 			var BackwheelR = player.getScene().getObjectByName("BackwheelR");
 			var BackwheelRdefaultPos = BackwheelR.position.z;
+			var BoardT = player.getScene().getObjectByName("BoardT");
+			var BoardTdefaultPos = BoardT.position.y;
+			var ClawR = player.getScene().getObjectByName("ClawR");
+			var ClawRdefaultPos = ClawR.position.y;
+			var ClawL = player.getScene().getObjectByName("ClawL");
+			var ClawLdefaultPos = ClawL.position.y;
 
 			slider.oninput = function () {
 				var step = slider.value;
@@ -94,7 +100,9 @@
 				FrontwheelR.position.z = FrontwheelRdefaultPos + step*2;
 				BackwheelL.position.z = BackwheelLdefaultPos - step*2;
 				BackwheelR.position.z = BackwheelRdefaultPos + step*2;
-
+				BoardT.position.y = BoardTdefaultPos - step*1.6;
+				ClawR.position.y = ClawRdefaultPos - step*0.8;
+				ClawL.position.y = ClawLdefaultPos - step*0.8;
 			}
 			
 			
