@@ -80,15 +80,28 @@
 			});
 
 			
-			
+			var mblogo = document.createElement('img');
+			mblogo.setAttribute("id","mblogo");
+			mblogo.setAttribute("src","/pic/mblogo.png");
+			mblogo.style.cssText = 'position: absolute; top: 19px; right: auto; left: 19px; width: 116px; margin: auto;';
 
+			var mplogo = document.createElement('img');
+			mplogo.src = '/pic/mplogo.png';
+			mplogo.id = 'mplogo';
+			mplogo.style.cssText = 'position: absolute; top: 23px; left: auto; right: 22px; width: 122px; margin: auto;';
+
+			var lablogo = document.createElement('img');
+			lablogo.src = '/pic/lablogo.png';
+			lablogo.id = 'lablogo';
+			lablogo.style.cssText = 'position: absolute; bottom: 80px; left: 0; right: 0; width: 221.9px; margin: auto;';
+			
 			var slider = document.createElement('input');
 			slider.type = 'range';
-			slider.style.cssText = 'position: absolute; bottom: 80px; right: 0; left: 0; width: 170px; margin: auto;';
+			slider.style.cssText = 'position: absolute; bottom: 180px; right: 0; left: 0; width: 170px; margin: auto;';
 			slider.value = 0;
 			slider.min = 0;
 			slider.max = 50;
-			// var seat = player.getScene().getObjectByProperty('uuid', '8A8FE6E9-84F5-4D79-B691-D72B85807810', true);
+
 			var seat = player.getScene().getObjectByName("seat");
 			var seatdefaultPos = seat.position.y;
 			var FrontwheelL = player.getScene().getObjectByName("FrontwheelL");
@@ -168,6 +181,10 @@
 			
 			
 			document.body.appendChild(slider);
+			document.body.appendChild(mblogo);
+			document.body.appendChild(mplogo);
+			document.body.appendChild(lablogo);
+
 
 		});
 
