@@ -32,7 +32,7 @@
 		input[type=range]:focus {
 		outline: none;
 		}
-
+		
 		input[type=range]::-webkit-slider-thumb {
 		-webkit-appearance: none;
 		height: 25px;
@@ -80,27 +80,13 @@
 			});
 
 			
-			var mblogo = document.createElement('img');
-			mblogo.setAttribute("id","mblogo");
-			mblogo.setAttribute("src","https://github.com/tom88115/DIY-GOKART/blob/master/pic/mblogo.png?raw=true");
-			mblogo.style.cssText = 'position: absolute; top: 19px; right: auto; left: 19px; width: 116px; margin: auto;';
-
-			var mplogo = document.createElement('img');
-			mplogo.src = 'https://github.com/tom88115/DIY-GOKART/blob/master/pic/mplogo.png?raw=true';
-			mplogo.id = 'mplogo';
-			mplogo.style.cssText = 'position: absolute; top: 23px; left: auto; right: 22px; width: 122px; margin: auto;';
-
-			var lablogo = document.createElement('img');
-			lablogo.src = 'https://github.com/tom88115/DIY-GOKART/blob/master/pic/lablogo.png?raw=true';
-			lablogo.id = 'lablogo';
-			lablogo.style.cssText = 'position: absolute; bottom: 80px; left: 0; right: 0; width: 221.9px; margin: auto;';
-			
-			document.body.appendChild(mblogo);
-			document.body.appendChild(mplogo);
-			document.body.appendChild(lablogo);	
+			// document.body.appendChild(mblogo);
+			// document.body.appendChild(mplogo);
+			// document.body.appendChild(lablogo);	
 
 			var slider = document.createElement('input');
 			slider.type = 'range';
+			slider.orient = 'vertical';
 			slider.style.cssText = 'position: absolute; bottom: 180px; right: 0; left: 0; width: 170px; margin: auto;';
 			slider.value = 0;
 			slider.min = 0;
